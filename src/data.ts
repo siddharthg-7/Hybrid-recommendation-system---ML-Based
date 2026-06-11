@@ -1,4 +1,4 @@
-import { Movie, Rating } from "./types";
+import { Movie, Rating } from "./types.js";
 
 export const GENRES = [
   "Sci-Fi",

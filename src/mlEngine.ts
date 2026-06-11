@@ -1,5 +1,5 @@
-import { Movie, Rating, RecommendationItem, EvaluationMetrics, Cluster, ClusterPoint } from "./types";
-import { MOVIES, GENRES, USERS } from "./data";
+import { Movie, Rating, RecommendationItem, EvaluationMetrics, Cluster, ClusterPoint } from "./types.js";
+import { MOVIES, GENRES, USERS } from "./data.js";
 
 // Helper: Vector math
 function scalarProduct(a: number[], b: number[]): number {
