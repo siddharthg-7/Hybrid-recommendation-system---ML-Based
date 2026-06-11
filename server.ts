@@ -1,6 +1,6 @@
 import express from "express";
 import path from "path";
-import { createServer as createViteServer } from "vite";
+// Vite is imported dynamically in startServer to avoid production dependency issues
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 
@@ -528,6 +528,7 @@ app.post("/feedback", (req, res) => {
 // Configure Vite or production static file serving
 const startServer = async () => {
   if (process.env.NODE_ENV !== "production") {
+    const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
