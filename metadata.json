@@ -1,0 +1,6 @@
+{
+  "name": "Hybrid Recommendation System",
+  "description": "A personalized hybrid recommendation system combining Content-Based and Collaborative Filtering machine learning with Gemini generative explanations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
