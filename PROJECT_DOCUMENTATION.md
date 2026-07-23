@@ -26,51 +26,60 @@ The following diagram illustrates the complete data flow and system interaction 
 
 ```mermaid
 flowchart TD
-    subgraph Data Layer
-        A1[Curated Dataset: 25 Movies, 8 Users, Historical Ratings]
-        A2[MovieLens 100K Dataset: Live CSV Stream from GitHub CDNs]
+    subgraph Data_Layer["Data Layer"]
+        A1["Curated Dataset: 25 Movies, 8 Users, Historical Ratings"]
+        A2["MovieLens 100K Dataset: Live CSV Stream from GitHub CDNs"]
     end
 
-    subgraph Client Layer (React 19 + Vite)
-        B1[Cyber Obsidian Bento Grid Dashboard]
-        B2[Hybrid Slider w_col: 0.0 - 1.0]
-        B3[Interactive User Rating Editor]
-        B4[Interactive SVG Cluster Scatter Plot]
-        B5[Evaluation Metrics Cards]
+    subgraph Client_Layer["Client Layer (React 19 + Vite)"]
+        B1["Cyber Obsidian Bento Grid Dashboard"]
+        B2["Hybrid Slider (w_col: 0.0 - 1.0)"]
+        B3["Interactive User Rating Editor"]
+        B4["Interactive SVG Cluster Scatter Plot"]
+        B5["Evaluation Metrics Cards"]
     end
 
-    subgraph Backend REST API (Node.js + Express)
-        C1[server.ts API Handler]
-        C2[In-Memory Rating State Manager]
-        C3[Gemini API Client with Model Retries & Fallback]
+    subgraph Backend_API["Backend REST API (Node.js + Express)"]
+        C1["server.ts API Handler"]
+        C2["In-Memory Rating State Manager"]
+        C3["Gemini API Client with Model Retries & Fallback"]
     end
 
-    subgraph Machine Learning Engine (mlEngine.ts)
-        D1[TF-IDF Engine: Genre IDF & Cosine Similarity]
-        D2[SVD Matrix Factorization: SGD Latent Factors]
-        D3[Hybrid Score Combiner: Weighted Fusion]
-        D4[Feature Engineering: Profile Stats & Bias]
-        D5[K-Means Engine: 2D Projection & User Cohorts]
-        D6[Evaluation Engine: 80/20 Train-Test Split Metrics]
+    subgraph ML_Engine["Machine Learning Engine (mlEngine.ts)"]
+        D1["TF-IDF Engine: Genre IDF & Cosine Similarity"]
+        D2["SVD Matrix Factorization: SGD Latent Factors"]
+        D3["Hybrid Score Combiner: Weighted Fusion"]
+        D4["Feature Engineering: Profile Stats & Bias"]
+        D5["K-Means Engine: 2D Projection & User Cohorts"]
+        D6["Evaluation Engine: 80/20 Train-Test Split Metrics"]
     end
 
-    subgraph LLM Layer (Google Gemini)
-        E1[Gemini 3.1 Flash Lite / 3.5 Flash]
-        E2[Deterministic Demo Fallback Engine]
+    subgraph LLM_Layer["LLM Layer (Google Gemini)"]
+        E1["Gemini 3.1 Flash Lite / 3.5 Flash"]
+        E2["Deterministic Demo Fallback Engine"]
     end
 
     A1 --> C2
-    A2 -->|/api/load-movielens| C1
-    B1 -->|REST Requests| C1
-    B2 & B3 -->|Updated Weights & Custom Ratings| C1
-    C1 --> D1 & D2 & D3 & D4 & D5 & D6
-    D3 & D4 & D5 & D6 -->|JSON Payload| B1
-    B1 -->|Trigger Explanation| C3
-    C3 -->|Prompt| E1
-    E1 -->|Explanation Text| C1
-    E1 -.->|API Failure| E2
-    E2 -.->|Fallback Explanation| C1
-    C1 -->|Explanation Response| B1
+    A2 -->|"/api/load-movielens"| C1
+    B1 -->|"REST Requests"| C1
+    B2 -->|"Updated Weights"| C1
+    B3 -->|"Custom Ratings"| C1
+    C1 --> D1
+    C1 --> D2
+    C1 --> D3
+    C1 --> D4
+    C1 --> D5
+    C1 --> D6
+    D3 -->|"JSON Payload"| B1
+    D4 -->|"JSON Payload"| B1
+    D5 -->|"JSON Payload"| B1
+    D6 -->|"JSON Payload"| B1
+    B1 -->|"Trigger Explanation"| C3
+    C3 -->|"Prompt"| E1
+    E1 -->|"Explanation Text"| C1
+    E1 -.->|"API Failure"| E2
+    E2 -.->|"Fallback Explanation"| C1
+    C1 -->|"Explanation Response"| B1
 ```
 
 ---
